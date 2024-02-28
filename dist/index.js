@@ -20,10 +20,8 @@ class TodoList {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
-        // Set the state of the todo item
         const todo = this.todos[index];
         todo.completed = !todo.completed;
-        // Update the UI
         const todoListItem = this.todoListContainer.children[index];
         const checkbox = todoListItem.querySelector('input[type="checkbox"]');
         if (!checkbox)
@@ -35,9 +33,7 @@ class TodoList {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
-        // Remove the item from the todos array
         this.todos.splice(index, 1);
-        // Remove from UI
         const todoListItem = this.todoListContainer.children[index];
         if (!todoListItem)
             return;

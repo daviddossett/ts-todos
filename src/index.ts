@@ -18,22 +18,20 @@ class TodoList {
         this.todoListContainer = todoListContainer;
     }
 
-    addTodo(task: string) {
+    addTodo(task: string): void {
         const newTodo = new Todo(task);
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
     }
 
-    toggleCompletion(index: number) {
+    toggleCompletion(index: number): void {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
 
-        // Set the state of the todo item
         const todo = this.todos[index];
         todo.completed = !todo.completed;
 
-        // Update the UI
         const todoListItem = this.todoListContainer.children[index] as HTMLLIElement;
         const checkbox = todoListItem.querySelector('input[type="checkbox"]') as HTMLInputElement;
         if (!checkbox) return;
@@ -42,21 +40,20 @@ class TodoList {
         todo.completed ? todoListItem.classList.add('completed') : todoListItem.classList.remove('completed');
     }
 
-    removeTodo(index: number) {
+    removeTodo(index: number): void {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
-        // Remove the item from the todos array
+
         this.todos.splice(index, 1);
         
-        // Remove from UI
         const todoListItem = this.todoListContainer.children[index] as HTMLLIElement;
         if (!todoListItem) return;
         
         this.todoListContainer.removeChild(todoListItem);
     }
 
-    createTodoElement(todo: Todo) {
+    createTodoElement(todo: Todo): HTMLLIElement {
         const todoItem = document.createElement('li');
         todoItem.dataset.todoId = todo.id.toString();
     
@@ -82,7 +79,7 @@ class TodoList {
         return todoItem;
     }
 
-    renderTodo(todo: Todo) {
+    renderTodo(todo: Todo): void {
         const todoElement = this.createTodoElement(todo);
         this.todoListContainer.appendChild(todoElement);
     }
@@ -106,13 +103,13 @@ class TodoForm {
         this.form.addEventListener('submit', this.handleSubmit());
     }
 
-    handleInput() {
+    handleInput(): () => void {
         return () => {
             this.button.disabled = !this.input.value;
         };
     }
 
-    handleSubmit() {
+    handleSubmit(): (e: Event) => void {
         return (e: Event) => {
             e.preventDefault();
             if (!this.input.value) {
