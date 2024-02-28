@@ -20,8 +20,10 @@ class TodoList {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
+        // Set the state of the todo item
         const todo = this.todos[index];
         todo.completed = !todo.completed;
+        // Update the UI
         const todoListItem = this.todoListContainer.children[index];
         const checkbox = todoListItem.querySelector('input[type="checkbox"]');
         if (!checkbox)
@@ -33,7 +35,9 @@ class TodoList {
         if (index < 0 || index >= this.todos.length) {
             throw new Error('Index out of bounds');
         }
+        // Remove the item from the todos array
         this.todos.splice(index, 1);
+        // Remove from UI
         const todoListItem = this.todoListContainer.children[index];
         if (!todoListItem)
             return;
@@ -73,24 +77,23 @@ class TodoForm {
         this.todoList = todoList;
         this.button.disabled = true;
         this.input.addEventListener('input', this.handleInput());
-        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.form.addEventListener('submit', this.handleSubmit);
     }
     handleInput() {
         return () => {
             this.button.disabled = !this.input.value;
         };
     }
-    handleSubmit() {
-        return (e) => {
-            e.preventDefault();
-            if (!this.input.value) {
-                return;
-            }
-            ;
-            this.todoList.addTodo(this.input.value);
-            this.input.value = '';
-            this.button.disabled = true;
-        };
+    handleSubmit(e) {
+        e.preventDefault();
+        if (!this.input.value) {
+            return;
+        }
+        ;
+        this.todoList.addTodo(this.input.value);
+        this.input.value = '';
+        this.button.disabled = true;
     }
 }
 class App {
