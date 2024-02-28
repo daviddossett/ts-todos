@@ -62,12 +62,11 @@ class TodoList {
 
     saveTodos() {
         localStorage.setItem('todos', JSON.stringify(this.todos));
-        console.log('savedTodos', JSON.stringify(this.todos));
     }
 
     loadTodos() {
         const savedTodos = localStorage.getItem('todos');
-        console.log(savedTodos);
+        
         if (savedTodos) {
             const parsedTodos = JSON.parse(savedTodos);
             const newTodos = parsedTodos.map((parsedTodo: any) => new Todo(parsedTodo.task, parsedTodo.completed));
