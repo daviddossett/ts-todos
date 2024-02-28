@@ -10,11 +10,13 @@ class TodoList {
     constructor(todoListContainer) {
         this.todos = [];
         this.todoListContainer = todoListContainer;
+        this.loadTodos();
     }
     addTodo(task) {
         const newTodo = new Todo(task);
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
+        this.saveTodos();
     }
     toggleCompletion(index) {
         if (index < 0 || index >= this.todos.length) {
@@ -30,6 +32,7 @@ class TodoList {
             return;
         checkbox.checked = todo.completed;
         todo.completed ? todoListItem.classList.add('completed') : todoListItem.classList.remove('completed');
+        this.saveTodos();
     }
     removeTodo(index) {
         if (index < 0 || index >= this.todos.length) {
@@ -42,6 +45,21 @@ class TodoList {
         if (!todoListItem)
             return;
         this.todoListContainer.removeChild(todoListItem);
+        this.saveTodos();
+    }
+    saveTodos() {
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+        console.log('savedTodos', JSON.stringify(this.todos));
+    }
+    loadTodos() {
+        const savedTodos = localStorage.getItem('todos');
+        console.log(savedTodos);
+        if (savedTodos) {
+            const parsedTodos = JSON.parse(savedTodos);
+            const newTodos = parsedTodos.map((parsedTodo) => new Todo(parsedTodo.task, parsedTodo.completed));
+            this.todos = newTodos;
+            this.todos.forEach(todo => this.renderTodo(todo));
+        }
     }
     createTodoElement(todo) {
         const todoItem = document.createElement('li');

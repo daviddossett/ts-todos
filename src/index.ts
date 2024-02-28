@@ -16,12 +16,14 @@ class TodoList {
 
     constructor(todoListContainer: HTMLUListElement) {
         this.todoListContainer = todoListContainer;
+        this.loadTodos();
     }
 
     addTodo(task: string) {
         const newTodo = new Todo(task);
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
+        this.saveTodos();
     }
 
     toggleCompletion(index: number) {
@@ -40,6 +42,7 @@ class TodoList {
 
         checkbox.checked = todo.completed;
         todo.completed ? todoListItem.classList.add('completed') : todoListItem.classList.remove('completed');
+        this.saveTodos();
     }
 
     removeTodo(index: number) {
@@ -54,6 +57,23 @@ class TodoList {
         if (!todoListItem) return;
         
         this.todoListContainer.removeChild(todoListItem);
+        this.saveTodos();
+    }
+
+    saveTodos() {
+        localStorage.setItem('todos', JSON.stringify(this.todos));
+        console.log('savedTodos', JSON.stringify(this.todos));
+    }
+
+    loadTodos() {
+        const savedTodos = localStorage.getItem('todos');
+        console.log(savedTodos);
+        if (savedTodos) {
+            const parsedTodos = JSON.parse(savedTodos);
+            const newTodos = parsedTodos.map((parsedTodo: any) => new Todo(parsedTodo.task, parsedTodo.completed));
+            this.todos = newTodos;
+            this.todos.forEach(todo => this.renderTodo(todo));
+        }
     }
 
     createTodoElement(todo: Todo) {
