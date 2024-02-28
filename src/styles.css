@@ -1,12 +1,65 @@
-body {
-    background: #f2f2f2;
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
 }
 
-p, li {
+body {
+    height: 100%;
+    width: 100%;
+    background: #f2f2f2;
     color: #1e1e1e;
-    font-family: system-ui, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+button {
+    font-size: 1.25rem;   
+    background: #0078d4;
+    border-radius: 5px;
+    border: none;
+    color: #ffffff;
+}
+
+button:disabled {
+    background: #c8c8c8;
+    cursor: not-allowed;
+}
+
+button:hover {
+    background: #005a9e;
+    cursor: pointer;
+}
+
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%
 }
 
 .completed {
     text-decoration: line-through;
 }
+
+#todo-form {
+    max-width: 600px;
+    padding: 16px;
+    display: flex;
+    width: auto;
+    gap: 4px;
+}
+
+#todo-form input {
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 12px 10px;
+    background: none;
+    font-size: 1.25rem;
+}
+

@@ -72,13 +72,21 @@ class TodoList {
 const todoList = new TodoList(document.getElementById('todo-list'));
 const todoForm = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
+const button = document.getElementById('todo-add-button');
 if (!todoList || !todoForm || !input) {
     throw new Error('Could not find todo list or form');
 }
+button.disabled = true;
+input.addEventListener('input', () => {
+    button.disabled = !input.value;
+});
 todoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (!input.value)
+    if (!input.value) {
         return;
+    }
+    ;
     todoList.addTodo(input.value);
     input.value = '';
+    button.disabled = true;
 });
