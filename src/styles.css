@@ -22,16 +22,17 @@ button {
     color: #ffffff;
 }
 
-button:disabled {
-    background: #c8c8c8;
-    cursor: not-allowed;
-}
-
 button:hover {
     background: #005a9e;
     cursor: pointer;
 }
 
+button:disabled, 
+button:disabled:hover {
+    background: #c8c8c8;
+    color: #777777;
+    cursor: unset;
+}
 
 .content {
     display: flex;
