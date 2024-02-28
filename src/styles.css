@@ -1,0 +1,12 @@
+body {
+    background: #f2f2f2;
+}
+
+p, li {
+    color: #1e1e1e;
+    font-family: system-ui, sans-serif;
+}
+
+.completed {
+    text-decoration: line-through;
+}
