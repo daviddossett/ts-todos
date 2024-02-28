@@ -100,7 +100,7 @@ class TodoForm {
         this.button.disabled = true;
 
         this.input.addEventListener('input', this.handleInput());
-        this.form.addEventListener('submit', this.handleSubmit());
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
     }
 
     handleInput(): () => void {
