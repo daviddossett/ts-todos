@@ -116,6 +116,16 @@ class App {
     constructor() {
         this.todoList = new TodoList(document.getElementById('todo-list'));
         this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-add-button'), this.todoList);
+        getDate();
+    }
+}
+function getDate() {
+    // Select the paragraph element
+    let dateElement = document.querySelector('.current-date');
+    let currentDate = new Date();
+    let formattedDate = currentDate.toLocaleString('en-US', { month: 'long', day: 'numeric' });
+    if (dateElement) {
+        dateElement.textContent = formattedDate;
     }
 }
 new App();

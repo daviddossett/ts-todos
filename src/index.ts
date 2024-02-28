@@ -155,6 +155,18 @@ class App {
             document.getElementById('todo-add-button') as HTMLButtonElement,
             this.todoList
         );
+        getDate();
+    }
+}
+
+function getDate() {
+    // Select the paragraph element
+    let dateElement = document.querySelector('.current-date');
+    let currentDate = new Date();
+    let formattedDate = currentDate.toLocaleString('en-US', { month: 'long', day: 'numeric' });
+
+    if (dateElement) {
+        dateElement.textContent = formattedDate;
     }
 }
 
