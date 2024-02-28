@@ -69,24 +69,37 @@ class TodoList {
         this.todoListContainer.appendChild(todoElement);
     }
 }
-const todoList = new TodoList(document.getElementById('todo-list'));
-const todoForm = document.getElementById('todo-form');
-const input = document.getElementById('todo-input');
-const button = document.getElementById('todo-add-button');
-if (!todoList || !todoForm || !input) {
-    throw new Error('Could not find todo list or form');
-}
-button.disabled = true;
-input.addEventListener('input', () => {
-    button.disabled = !input.value;
-});
-todoForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!input.value) {
-        return;
+class TodoForm {
+    constructor(form, input, button, todoList) {
+        this.form = form;
+        this.input = input;
+        this.button = button;
+        this.todoList = todoList;
+        this.button.disabled = true;
+        this.input.addEventListener('input', this.handleInput());
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.form.addEventListener('submit', this.handleSubmit);
     }
-    ;
-    todoList.addTodo(input.value);
-    input.value = '';
-    button.disabled = true;
-});
+    handleInput() {
+        return () => {
+            this.button.disabled = !this.input.value;
+        };
+    }
+    handleSubmit(e) {
+        e.preventDefault();
+        if (!this.input.value) {
+            return;
+        }
+        ;
+        this.todoList.addTodo(this.input.value);
+        this.input.value = '';
+        this.button.disabled = true;
+    }
+}
+class App {
+    constructor() {
+        this.todoList = new TodoList(document.getElementById('todo-list'));
+        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-add-button'), this.todoList);
+    }
+}
+new App();

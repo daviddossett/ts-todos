@@ -1,12 +1,12 @@
 {
   "name": "my-typescript-app",
   "version": "1.0.0",
-  "description": "A TypeScript app",
-  "main": "index.html",
+  "description": "To do app using TypeScript",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
