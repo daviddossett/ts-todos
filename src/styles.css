@@ -117,6 +117,7 @@ button:disabled {
     padding: 16px 0 16px 12px;
     background: none;
     box-sizing: border-box;
+    font-size: 14px;
 }
 
 #todo-form input:focus {
