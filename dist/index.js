@@ -114,9 +114,9 @@ class TodoForm {
 }
 class App {
     constructor() {
-        this.todoList = new TodoList(document.getElementById('todo-list'));
-        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-add-button'), this.todoList);
         getDate();
+        this.todoList = new TodoList(document.getElementById('todo-list'));
+        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList);
     }
 }
 function getDate() {

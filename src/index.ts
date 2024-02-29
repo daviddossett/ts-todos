@@ -148,14 +148,14 @@ class App {
     todoForm: TodoForm;
 
     constructor() {
+        getDate();
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
         this.todoForm = new TodoForm(
             document.getElementById('todo-form') as HTMLFormElement,
             document.getElementById('todo-input') as HTMLInputElement,
-            document.getElementById('todo-add-button') as HTMLButtonElement,
+            document.getElementById('todo-submit-button') as HTMLButtonElement,
             this.todoList
         );
-        getDate();
     }
 }
 
