@@ -139,7 +139,7 @@ class TodoForm {
 
     // Use arrow functions to automatically bind `this` to the methods
     showForm = () => {
-        this.form.style.display = 'block';
+        this.form.style.display = 'flex';
         this.addButton.style.display = 'none';
     }
 

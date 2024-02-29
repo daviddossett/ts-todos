@@ -89,7 +89,7 @@ class TodoForm {
     constructor(form, input, submitButton, todoList, addButton) {
         // Use arrow functions to automatically bind `this` to the methods
         this.showForm = () => {
-            this.form.style.display = 'block';
+            this.form.style.display = 'flex';
             this.addButton.style.display = 'none';
         };
         this.hideForm = () => {
