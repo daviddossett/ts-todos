@@ -94,7 +94,7 @@ class TodoForm {
         };
         this.hideForm = () => {
             this.form.style.display = 'none';
-            this.addButton.style.display = 'block';
+            this.addButton.style.display = 'flex';
         };
         this.handleInput = () => {
             this.submitButton.disabled = !this.input.value;
@@ -108,6 +108,11 @@ class TodoForm {
             this.todoList.addTodo(this.input.value);
             this.input.value = '';
             this.submitButton.disabled = true;
+        };
+        this.handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                this.hideForm();
+            }
         };
         // Initialize properties
         this.form = form;
@@ -123,6 +128,8 @@ class TodoForm {
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
         this.addButton.addEventListener('click', this.showForm);
+        // Hide form when Escape key is pressed
+        document.addEventListener('keydown', this.handleKeyDown);
     }
 }
 class App {

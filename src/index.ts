@@ -132,6 +132,9 @@ class TodoForm {
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
         this.addButton.addEventListener('click', this.showForm);
+
+        // Hide form when Escape key is pressed
+        document.addEventListener('keydown', this.handleKeyDown);
     }
 
     // Use arrow functions to automatically bind `this` to the methods
@@ -142,7 +145,7 @@ class TodoForm {
 
     hideForm = () => {
         this.form.style.display = 'none';
-        this.addButton.style.display = 'block';
+        this.addButton.style.display = 'flex';
     }
 
     handleInput = () => {
@@ -157,6 +160,12 @@ class TodoForm {
         this.todoList.addTodo(this.input.value);
         this.input.value = '';
         this.submitButton.disabled = true;
+    }
+
+    handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+            this.hideForm();
+        }
     }
 }
 
