@@ -6,7 +6,7 @@ html {
 body {
     height: 100%;
     width: 100%;
-    background: #f2f2f2;
+    background: #ffffff;
     color: #1e1e1e;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
@@ -25,7 +25,7 @@ ul {
     width: 100%;
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 8px 0;
 }
 
 li {
@@ -33,26 +33,24 @@ li {
     display: flex;
     gap: 8px;
     padding: 16px 0;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 button {
     font-size: 14px;
-    background: #0078d4;
+    background: rgb(195, 57, 44);
     border-radius: 5px;
     border: none;
     color: #ffffff;
 }
 
 button:hover {
-    background: #005a9e;
+    background: rgb(156, 45, 35);
     cursor: pointer;
 }
 
-button:disabled, 
-button:disabled:hover {
-    background: #c8c8c8;
-    color: #878787;
+button:disabled {
+    background: rgba(156, 45, 35, 0.626);
     cursor: unset;
 }
 
@@ -67,7 +65,7 @@ button:disabled:hover {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 12px
+    padding-bottom: 24px
 }
 
 .current-date {
@@ -81,27 +79,55 @@ button:disabled:hover {
 
 #todo-form {
     display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
     width: 100%;
     gap: 4px;
+    box-sizing: border-box;
+    padding-right: 12px;
 }
 
 #todo-form input {
     border: none;
     flex-grow: 1;
-    border-bottom: 1px solid #d9d9d9;
-    padding: 12px 10px;
+    padding: 16px 0 16px 12px;
     background: none;
+    box-sizing: border-box;
+}
+
+#todo-form input:focus {
+    outline: none;
+    border: none;
+}
+
+#todo-form input::placeholder {
+    color: #999999;
 }
 
 #todo-add-button {
-    border-radius: 0;
     display: flex;
     align-items: center;
+    border-radius: 0;
     gap: 11px;
     background: none;
     width: 100%;
     color: rgb(128, 128, 128);
     padding: 10px 0;
+}
+
+#todo-submit-button,
+#todo-cancel-button {
+    font-size: 13px;
+    height: 30px;
+    padding: 0px 12px;
+    font-weight: 600;
+}
+
+#todo-cancel-button {
+    background-color: #f5f5f5;
+    color: #444444;
 }
 
 #todo-add-button:hover {
@@ -115,4 +141,3 @@ button:disabled:hover {
         margin: 0 auto;
     }
 }
-
