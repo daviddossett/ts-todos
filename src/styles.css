@@ -39,6 +39,11 @@ li {
     border-bottom: 1px solid #e3e3e3;
 }
 
+li:hover .remove-button,
+li:focus .remove-button {
+    opacity: 1;;
+}
+
 button {
     font-size: 14px;
     background: #C3392C;
@@ -87,12 +92,14 @@ button:disabled {
 }
 
 .remove-button {
+    opacity: 0;
     background-color: transparent;
     height: 24px;
     width: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity 0.08s ease-in-out;
 }
 
 .remove-button:hover {
