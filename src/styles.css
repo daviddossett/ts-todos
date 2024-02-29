@@ -41,19 +41,19 @@ li {
 
 button {
     font-size: 14px;
-    background: rgb(195, 57, 44);
+    background: #C3392C;
     border-radius: 5px;
     border: none;
     color: #ffffff;
 }
 
 button:hover {
-    background: rgb(156, 45, 35);
+    background: #9c2d23;
     cursor: pointer;
 }
 
 button:disabled {
-    background: rgba(156, 45, 35, 0.626);
+    background: #9c2d23a0;
     cursor: unset;
 }
 
@@ -73,7 +73,7 @@ button:disabled {
 
 .current-date {
     margin: 8px 0;
-    color: rgb(128, 128, 128);
+    color: #808080;
 }
 
 .completed {
@@ -136,7 +136,7 @@ button:disabled {
     gap: 11px;
     background: none;
     width: 100%;
-    color: rgb(128, 128, 128);
+    color: #808080;
     padding: 10px 0;
 }
 
@@ -159,7 +159,7 @@ button:disabled {
 
 @media (min-width: 1000px) {
     .content {
-        padding: 48px 32px;
+        padding: 64px 32px;
         max-width: 800px;
         margin: 0 auto;
     }
