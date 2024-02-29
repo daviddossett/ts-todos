@@ -110,36 +110,53 @@ class TodoList {
 class TodoForm {
     private form: HTMLFormElement;
     private input: HTMLInputElement;
-    private button: HTMLButtonElement;
+    private submitButton: HTMLButtonElement;
+    private addButton: HTMLButtonElement;
     private todoList: TodoList;
 
-    constructor(form: HTMLFormElement, input: HTMLInputElement, button: HTMLButtonElement, todoList: TodoList) {
+    constructor(form: HTMLFormElement, input: HTMLInputElement, submitButton: HTMLButtonElement, todoList: TodoList, addButton: HTMLButtonElement) {
+        // Initialize properties
         this.form = form;
         this.input = input;
-        this.button = button;
+        this.submitButton = submitButton;
         this.todoList = todoList;
+        this.addButton = addButton;
 
-        this.button.disabled = true;
+        // Disable the submit button initially
+        this.submitButton.disabled = true;
 
-        this.input.addEventListener('input', this.handleInput());
-        this.handleSubmit = this.handleSubmit.bind(this);
+        // Hide the form initially
+        this.hideForm();
+
+        // Attach event listeners
+        this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
+        this.addButton.addEventListener('click', this.showForm);
     }
 
-    handleInput() {
-        return () => {
-            this.button.disabled = !this.input.value;
-        };
+    // Use arrow functions to automatically bind `this` to the methods
+    showForm = () => {
+        this.form.style.display = 'block';
+        this.addButton.style.display = 'none';
     }
 
-    handleSubmit(e: Event) {
+    hideForm = () => {
+        this.form.style.display = 'none';
+        this.addButton.style.display = 'block';
+    }
+
+    handleInput = () => {
+        this.submitButton.disabled = !this.input.value;
+    }
+
+    handleSubmit = (e: Event) => {
         e.preventDefault();
         if (!this.input.value) {
             return;
         };
         this.todoList.addTodo(this.input.value);
         this.input.value = '';
-        this.button.disabled = true;
+        this.submitButton.disabled = true;
     }
 }
 
@@ -148,25 +165,14 @@ class App {
     todoForm: TodoForm;
 
     constructor() {
-        getDate();
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
         this.todoForm = new TodoForm(
             document.getElementById('todo-form') as HTMLFormElement,
             document.getElementById('todo-input') as HTMLInputElement,
             document.getElementById('todo-submit-button') as HTMLButtonElement,
-            this.todoList
+            this.todoList,
+            document.getElementById('todo-add-button') as HTMLButtonElement,
         );
-    }
-}
-
-function getDate() {
-    // Select the paragraph element
-    let dateElement = document.querySelector('.current-date');
-    let currentDate = new Date();
-    let formattedDate = currentDate.toLocaleString('en-US', { month: 'long', day: 'numeric' });
-
-    if (dateElement) {
-        dateElement.textContent = formattedDate;
     }
 }
 

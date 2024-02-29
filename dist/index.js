@@ -86,46 +86,49 @@ class TodoList {
     }
 }
 class TodoForm {
-    constructor(form, input, button, todoList) {
+    constructor(form, input, submitButton, todoList, addButton) {
+        // Use arrow functions to automatically bind `this` to the methods
+        this.showForm = () => {
+            this.form.style.display = 'block';
+            this.addButton.style.display = 'none';
+        };
+        this.hideForm = () => {
+            this.form.style.display = 'none';
+            this.addButton.style.display = 'block';
+        };
+        this.handleInput = () => {
+            this.submitButton.disabled = !this.input.value;
+        };
+        this.handleSubmit = (e) => {
+            e.preventDefault();
+            if (!this.input.value) {
+                return;
+            }
+            ;
+            this.todoList.addTodo(this.input.value);
+            this.input.value = '';
+            this.submitButton.disabled = true;
+        };
+        // Initialize properties
         this.form = form;
         this.input = input;
-        this.button = button;
+        this.submitButton = submitButton;
         this.todoList = todoList;
-        this.button.disabled = true;
-        this.input.addEventListener('input', this.handleInput());
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.addButton = addButton;
+        // Disable the submit button initially
+        this.submitButton.disabled = true;
+        // Hide the form initially
+        this.hideForm();
+        // Attach event listeners
+        this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
-    }
-    handleInput() {
-        return () => {
-            this.button.disabled = !this.input.value;
-        };
-    }
-    handleSubmit(e) {
-        e.preventDefault();
-        if (!this.input.value) {
-            return;
-        }
-        ;
-        this.todoList.addTodo(this.input.value);
-        this.input.value = '';
-        this.button.disabled = true;
+        this.addButton.addEventListener('click', this.showForm);
     }
 }
 class App {
     constructor() {
-        getDate();
         this.todoList = new TodoList(document.getElementById('todo-list'));
-        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList);
-    }
-}
-function getDate() {
-    // Select the paragraph element
-    let dateElement = document.querySelector('.current-date');
-    let currentDate = new Date();
-    let formattedDate = currentDate.toLocaleString('en-US', { month: 'long', day: 'numeric' });
-    if (dateElement) {
-        dateElement.textContent = formattedDate;
+        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList, document.getElementById('todo-add-button'));
     }
 }
 new App();

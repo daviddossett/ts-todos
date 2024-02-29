@@ -10,9 +10,11 @@
     <div class="content">
         <div class="header">
             <h1>Today</h1>
-            <p class="current-date"></p>
         </div>
-        <form id="todo-form"></form>
+        <form id="todo-form">
+            <input type="text" id="todo-input" placeholder="Add a task" aria-label="Add a task">
+            <button type="submit" id="todo-submit-button">Add</button>
+        </form>
         <button id="todo-add-button">
             <img src="assets/icons/add.svg" alt="Add">
             Add task
