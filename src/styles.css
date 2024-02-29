@@ -29,10 +29,13 @@ ul {
 }
 
 li {
-    width: 100%;
     display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     gap: 8px;
-    padding: 16px 0;
+    padding: 20px 16px 20px 0;
     border-bottom: 1px solid #e3e3e3;
 }
 
@@ -75,6 +78,25 @@ button:disabled {
 
 .completed {
     text-decoration: line-through;
+}
+
+.todo-content {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.remove-button {
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-button:hover {
+    background-color: #f5f5f5;
 }
 
 #todo-form {

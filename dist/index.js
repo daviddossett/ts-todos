@@ -62,22 +62,30 @@ class TodoList {
     createTodoElement(todo) {
         const todoItem = document.createElement('li');
         todoItem.dataset.todoId = todo.id.toString();
+        const todoContent = document.createElement('div');
+        todoContent.classList.add('todo-content');
         const completeButton = document.createElement('input');
         completeButton.type = 'checkbox';
         completeButton.addEventListener('change', () => {
             const index = this.todos.findIndex((t) => t.id === todo.id);
             this.toggleCompletion(index);
         });
-        todoItem.appendChild(completeButton);
+        todoContent.appendChild(completeButton);
+        const textNode = document.createTextNode(todo.task);
+        todoContent.appendChild(textNode);
+        todoItem.appendChild(todoContent);
         const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
+        removeButton.classList.add('remove-button');
+        // Create SVG image for the remove button
+        const removeIcon = document.createElement('img');
+        removeIcon.src = 'assets/icons/delete.svg';
+        removeIcon.alt = 'Remove';
+        removeButton.appendChild(removeIcon);
         removeButton.addEventListener('click', () => {
             const index = this.todos.findIndex((t) => t.id === todo.id);
             this.removeTodo(index);
         });
         todoItem.appendChild(removeButton);
-        const textNode = document.createTextNode(todo.task);
-        todoItem.insertBefore(textNode, removeButton);
         return todoItem;
     }
     renderTodo(todo) {
@@ -86,7 +94,7 @@ class TodoList {
     }
 }
 class TodoForm {
-    constructor(form, input, submitButton, todoList, addButton) {
+    constructor(form, input, submitButton, todoList, addButton, cancelButton) {
         // Use arrow functions to automatically bind `this` to the methods
         this.showForm = () => {
             this.form.style.display = 'flex';
@@ -109,6 +117,9 @@ class TodoForm {
             this.input.value = '';
             this.submitButton.disabled = true;
         };
+        this.handleCancel = () => {
+            this.hideForm();
+        };
         this.handleKeyDown = (e) => {
             if (e.key === 'Escape') {
                 this.hideForm();
@@ -120,6 +131,7 @@ class TodoForm {
         this.submitButton = submitButton;
         this.todoList = todoList;
         this.addButton = addButton;
+        this.cancelButton = cancelButton;
         // Disable the submit button initially
         this.submitButton.disabled = true;
         // Hide the form initially
@@ -128,6 +140,7 @@ class TodoForm {
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
         this.addButton.addEventListener('click', this.showForm);
+        this.cancelButton.addEventListener('click', this.handleCancel);
         // Hide form when Escape key is pressed
         document.addEventListener('keydown', this.handleKeyDown);
     }
@@ -135,7 +148,7 @@ class TodoForm {
 class App {
     constructor() {
         this.todoList = new TodoList(document.getElementById('todo-list'));
-        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList, document.getElementById('todo-add-button'));
+        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList, document.getElementById('todo-add-button'), document.getElementById('todo-cancel-button'));
     }
 }
 new App();

@@ -78,6 +78,9 @@ class TodoList {
     createTodoElement(todo: Todo) {
         const todoItem = document.createElement('li');
         todoItem.dataset.todoId = todo.id.toString();
+
+        const todoContent = document.createElement('div');
+        todoContent.classList.add('todo-content'); 
     
         const completeButton = document.createElement('input');
         completeButton.type = 'checkbox';
@@ -85,18 +88,27 @@ class TodoList {
             const index = this.todos.findIndex((t) => t.id === todo.id);
             this.toggleCompletion(index);
         });
-        todoItem.appendChild(completeButton);
+        todoContent.appendChild(completeButton);
+
+        const textNode = document.createTextNode(todo.task);
+        todoContent.appendChild(textNode);
+
+        todoItem.appendChild(todoContent);
     
         const removeButton = document.createElement('button');
-        removeButton.textContent = 'Remove';
+        removeButton.classList.add('remove-button');
+        
+        // Create SVG image for the remove button
+        const removeIcon = document.createElement('img');
+        removeIcon.src = 'assets/icons/delete.svg'; 
+        removeIcon.alt = 'Remove';
+        removeButton.appendChild(removeIcon);
+
         removeButton.addEventListener('click', () => {
             const index = this.todos.findIndex((t) => t.id === todo.id);
             this.removeTodo(index);
         });
         todoItem.appendChild(removeButton);
-    
-        const textNode = document.createTextNode(todo.task);
-        todoItem.insertBefore(textNode, removeButton)
 
         return todoItem;
     }
@@ -113,14 +125,16 @@ class TodoForm {
     private submitButton: HTMLButtonElement;
     private addButton: HTMLButtonElement;
     private todoList: TodoList;
+    private cancelButton: HTMLButtonElement;
 
-    constructor(form: HTMLFormElement, input: HTMLInputElement, submitButton: HTMLButtonElement, todoList: TodoList, addButton: HTMLButtonElement) {
+    constructor(form: HTMLFormElement, input: HTMLInputElement, submitButton: HTMLButtonElement, todoList: TodoList, addButton: HTMLButtonElement, cancelButton: HTMLButtonElement) {
         // Initialize properties
         this.form = form;
         this.input = input;
         this.submitButton = submitButton;
         this.todoList = todoList;
         this.addButton = addButton;
+        this.cancelButton = cancelButton;
 
         // Disable the submit button initially
         this.submitButton.disabled = true;
@@ -132,6 +146,7 @@ class TodoForm {
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
         this.addButton.addEventListener('click', this.showForm);
+        this.cancelButton.addEventListener('click', this.handleCancel);
 
         // Hide form when Escape key is pressed
         document.addEventListener('keydown', this.handleKeyDown);
@@ -162,6 +177,10 @@ class TodoForm {
         this.submitButton.disabled = true;
     }
 
+    handleCancel = () => {
+        this.hideForm();
+    }
+
     handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             this.hideForm();
@@ -181,6 +200,7 @@ class App {
             document.getElementById('todo-submit-button') as HTMLButtonElement,
             this.todoList,
             document.getElementById('todo-add-button') as HTMLButtonElement,
+            document.getElementById('todo-cancel-button') as HTMLButtonElement,
         );
     }
 }
