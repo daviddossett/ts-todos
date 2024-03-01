@@ -83,6 +83,7 @@ class TodoList {
         const completeButton = document.createElement('input');
         completeButton.type = 'checkbox';
         completeButton.checked = todo.completed;
+        completeButton.id = `todo-${todo.id}`;
 
         // Apply or remove strike through styling
         todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
@@ -92,8 +93,10 @@ class TodoList {
         });
         todoContent.appendChild(completeButton);
 
-        const textNode = document.createTextNode(todo.task);
-        todoContent.appendChild(textNode);
+        const label = document.createElement('label');
+        label.textContent = todo.task;
+        label.htmlFor = `todo-${todo.id}`;
+        todoContent.appendChild(label);
 
         todoItem.appendChild(todoContent);
     
