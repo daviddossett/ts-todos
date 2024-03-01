@@ -131,8 +131,6 @@ class TodoForm {
         this.cancelButton = cancelButton;
         // Disable the submit button initially
         this.submitButton.disabled = true;
-        // Hide the form initially
-        this.hideForm();
         // Attach event listeners
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
