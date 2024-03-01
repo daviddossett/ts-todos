@@ -63,16 +63,16 @@ class TodoList {
         completeButton.type = 'checkbox';
         completeButton.checked = todo.completed;
         completeButton.id = `todo-${todo.id}`;
-        // Apply or remove strike through styling
-        todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
-        completeButton.addEventListener('change', (event) => {
-            this.updateTodoElement(todo.id);
-        });
         todoContent.appendChild(completeButton);
         const label = document.createElement('label');
         label.textContent = todo.task;
         label.htmlFor = `todo-${todo.id}`;
         todoContent.appendChild(label);
+        // Apply or remove strike through styling
+        todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
+        completeButton.addEventListener('change', (event) => {
+            this.updateTodoElement(todo.id);
+        });
         todoItem.appendChild(todoContent);
         const removeButton = document.createElement('button');
         removeButton.classList.add('remove-button');

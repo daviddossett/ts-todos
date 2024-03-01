@@ -94,6 +94,15 @@ button:disabled {
     align-items: center;
 }
 
+.todo-content:hover,
+.todo-content:hover label {
+    cursor: pointer;
+}
+
+.todo-content label {
+    overflow-wrap: anywhere;
+}
+
 .remove-button {
     opacity: 0;
     background-color: transparent;
