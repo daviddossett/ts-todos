@@ -168,6 +168,12 @@ button:disabled {
     color: #444444;
 }
 
+#todo-cancel-button:hover,
+#todo-cancel-button:focus {
+    background-color: #eeeeee;
+    color: #212121;
+}   
+
 #todo-add-button:hover {
     color:#9c2d23;
 }
