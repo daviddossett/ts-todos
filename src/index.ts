@@ -155,6 +155,7 @@ class TodoForm {
     showForm = () => {
         this.form.style.display = 'flex';
         this.addButton.style.display = 'none';
+        this.input.focus();
     }
 
     hideForm = () => {
