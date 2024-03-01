@@ -162,6 +162,7 @@ button:disabled {
     width: 100%;
     color: #666;
     padding: 10px 0;
+    font-weight: 600;
 }
 
 #todo-submit-button,
