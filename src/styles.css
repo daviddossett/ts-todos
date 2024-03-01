@@ -85,7 +85,7 @@ button:disabled {
 
 .completed {
     text-decoration: line-through;
-    color: #888888;
+    color: #666666;
 }
 
 .todo-content {
@@ -151,7 +151,7 @@ button:disabled {
     gap: 11px;
     background: none;
     width: 100%;
-    color: #808080;
+    color: #666;
     padding: 10px 0;
 }
 
