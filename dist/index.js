@@ -38,12 +38,9 @@ class TodoList {
         // Remove the item from the todos array
         this.todos.splice(index, 1);
         // Remove from UI
-        // const todoListItem = Array.from(this.todoListContainer.children).find(
-        //     (child) => child.dataset.id === id.toString()
-        // ) as HTMLLIElement;
-        // if (!todoListItem) return;
-        // this.todoListContainer.removeChild(todoListItem);
-        // this.saveTodos();
+        const todoItem = document.querySelector(`[data-todo-id="${id}"]`);
+        this.todoListContainer.removeChild(todoItem);
+        this.saveTodos();
     }
     saveTodos() {
         localStorage.setItem('todos', JSON.stringify(this.todos));
@@ -83,7 +80,7 @@ class TodoList {
         removeButton.appendChild(removeIcon);
         removeButton.addEventListener('click', () => {
             const index = this.todos.findIndex((t) => t.id === todo.id);
-            this.removeTodo(index);
+            this.removeTodo(todo.id);
         });
         todoItem.appendChild(removeButton);
         return todoItem;

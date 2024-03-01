@@ -52,13 +52,10 @@ class TodoList {
         this.todos.splice(index, 1);
         
         // Remove from UI
-        // const todoListItem = Array.from(this.todoListContainer.children).find(
-        //     (child) => child.dataset.id === id.toString()
-        // ) as HTMLLIElement;
-        // if (!todoListItem) return;
+        const todoItem = document.querySelector(`[data-todo-id="${id}"]`) as HTMLLIElement;
         
-        // this.todoListContainer.removeChild(todoListItem);
-        // this.saveTodos();
+        this.todoListContainer.removeChild(todoItem);
+        this.saveTodos();
     }
 
     saveTodos() {
@@ -111,7 +108,7 @@ class TodoList {
 
         removeButton.addEventListener('click', () => {
             const index = this.todos.findIndex((t) => t.id === todo.id);
-            this.removeTodo(index);
+            this.removeTodo(todo.id);
         });
         todoItem.appendChild(removeButton);
 
