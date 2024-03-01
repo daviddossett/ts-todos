@@ -62,9 +62,9 @@ class TodoList {
         const completeButton = document.createElement('input');
         completeButton.type = 'checkbox';
         completeButton.checked = todo.completed;
+        // Apply or remove strike through styling
         todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
         completeButton.addEventListener('change', (event) => {
-            event.stopPropagation();
             this.updateTodoElement(todo.id);
         });
         todoContent.appendChild(completeButton);
