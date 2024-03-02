@@ -206,6 +206,7 @@ class DateUpdater {
     private dateElement: HTMLElement | null;
 
     constructor(dateElementId: string) {
+        console.log('boop');
         this.dateElement = document.getElementById(dateElementId);
     }
 
@@ -249,19 +250,28 @@ class CounterUpdater {
     }
 }
 
+class Header {
+    dateUpdater: DateUpdater;
+    counterUpdater: CounterUpdater;
+
+    constructor() {
+        this.dateUpdater = new DateUpdater('date');
+        this.counterUpdater = new CounterUpdater('counter');
+
+        this.dateUpdater.updateDate(new Date());
+        this.counterUpdater.updateCounter();
+    }
+}
+
 class App {
+    header: Header;
     todoList: TodoList;
     todoForm: TodoForm;
 
     constructor() {
+        this.header = new Header();
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
         this.todoForm = new TodoForm(this.todoList);
-        
-        let dateUpdater = new DateUpdater('date');
-        dateUpdater.updateDate(new Date());
-        
-        let counterUpdater = new CounterUpdater('counter');
-        counterUpdater.updateCounter();
     }
 }
 

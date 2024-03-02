@@ -151,6 +151,7 @@ class TodoForm {
 }
 class DateUpdater {
     constructor(dateElementId) {
+        console.log('boop');
         this.dateElement = document.getElementById(dateElementId);
     }
     updateDate(date) {
@@ -189,14 +190,19 @@ class CounterUpdater {
         }
     }
 }
+class Header {
+    constructor() {
+        this.dateUpdater = new DateUpdater('date');
+        this.counterUpdater = new CounterUpdater('counter');
+        this.dateUpdater.updateDate(new Date());
+        this.counterUpdater.updateCounter();
+    }
+}
 class App {
     constructor() {
+        this.header = new Header();
         this.todoList = new TodoList(document.getElementById('todo-list'));
         this.todoForm = new TodoForm(this.todoList);
-        let dateUpdater = new DateUpdater('date');
-        dateUpdater.updateDate(new Date());
-        let counterUpdater = new CounterUpdater('counter');
-        counterUpdater.updateCounter();
     }
 }
 new App();
