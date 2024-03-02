@@ -29,6 +29,8 @@ class TodoList {
         const todoItem = document.querySelector(`[data-todo-id="${id}"]`);
         todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
         this.saveTodos();
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
     removeTodo(id) {
         const index = this.todos.findIndex(todo => todo.id === id);
@@ -144,10 +146,43 @@ class TodoForm {
         document.addEventListener('keydown', this.handleKeyDown);
     }
 }
+class DateUpdater {
+    constructor(dateElementId) {
+        this.dateElement = document.getElementById(dateElementId);
+    }
+    updateDate(date) {
+        if (!this.dateElement) {
+            return;
+        }
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        this.dateElement.textContent = `📅 ${date.toLocaleDateString(undefined, options)}`;
+    }
+}
+class CounterUpdater {
+    constructor(counterElementId) {
+        this.counterElement = document.getElementById(counterElementId);
+    }
+    updateCounter() {
+        if (!this.counterElement) {
+            return;
+        }
+        const savedTodos = localStorage.getItem('todos');
+        if (savedTodos) {
+            const parsedTodos = JSON.parse(savedTodos);
+            const completedCount = parsedTodos.filter((todo) => todo.completed).length;
+            const totalCount = parsedTodos.length;
+            this.counterElement.textContent = `✅ ${completedCount}/${totalCount} completed`;
+        }
+    }
+}
 class App {
     constructor() {
         this.todoList = new TodoList(document.getElementById('todo-list'));
         this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList, document.getElementById('todo-add-button'), document.getElementById('todo-cancel-button'));
+        let dateUpdater = new DateUpdater('date');
+        dateUpdater.updateDate(new Date());
+        let counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
 }
 new App();

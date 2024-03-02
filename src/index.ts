@@ -41,6 +41,9 @@ class TodoList {
         todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
 
         this.saveTodos();
+
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
 
     removeTodo(id: number) {
@@ -192,6 +195,44 @@ class TodoForm {
     }
 }
 
+class DateUpdater {
+    private dateElement: HTMLElement | null;
+
+    constructor(dateElementId: string) {
+        this.dateElement = document.getElementById(dateElementId);
+    }
+
+    updateDate(date: Date) {
+        if (!this.dateElement) {
+            return;
+        }
+        const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        this.dateElement.textContent = `📅 ${date.toLocaleDateString(undefined, options)}`;
+    }
+}
+
+class CounterUpdater {
+    private counterElement: HTMLElement | null;
+
+    constructor(counterElementId: string) {
+        this.counterElement = document.getElementById(counterElementId);
+    }
+
+    updateCounter() {
+        if (!this.counterElement) {
+            return;
+        }
+
+        const savedTodos = localStorage.getItem('todos');
+        if (savedTodos) {
+            const parsedTodos = JSON.parse(savedTodos);
+            const completedCount = parsedTodos.filter((todo: any) => todo.completed).length;
+            const totalCount = parsedTodos.length;
+            this.counterElement.textContent = `✅ ${completedCount}/${totalCount} completed`;
+        }
+    }
+}
+
 class App {
     todoList: TodoList;
     todoForm: TodoForm;
@@ -206,6 +247,11 @@ class App {
             document.getElementById('todo-add-button') as HTMLButtonElement,
             document.getElementById('todo-cancel-button') as HTMLButtonElement,
         );
+        let dateUpdater = new DateUpdater('date');
+        dateUpdater.updateDate(new Date());
+        
+        let counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
 }
 
