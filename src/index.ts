@@ -24,6 +24,9 @@ class TodoList {
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
         this.saveTodos();
+        
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
 
     updateTodoElement(id: number) {
@@ -41,9 +44,9 @@ class TodoList {
         todo.completed ? todoItem.classList.add('completed') : todoItem.classList.remove('completed');
 
         this.saveTodos();
-
         const counterUpdater = new CounterUpdater('counter');
         counterUpdater.updateCounter();
+
     }
 
     removeTodo(id: number) {
@@ -58,7 +61,11 @@ class TodoList {
         const todoItem = document.querySelector(`[data-todo-id="${id}"]`) as HTMLLIElement;
         
         this.todoListContainer.removeChild(todoItem);
+
         this.saveTodos();
+
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
 
     saveTodos() {

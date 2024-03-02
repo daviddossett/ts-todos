@@ -17,6 +17,8 @@ class TodoList {
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
         this.saveTodos();
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
     updateTodoElement(id) {
         const todo = this.todos.find(todo => todo.id === id);
@@ -43,6 +45,8 @@ class TodoList {
         const todoItem = document.querySelector(`[data-todo-id="${id}"]`);
         this.todoListContainer.removeChild(todoItem);
         this.saveTodos();
+        const counterUpdater = new CounterUpdater('counter');
+        counterUpdater.updateCounter();
     }
     saveTodos() {
         localStorage.setItem('todos', JSON.stringify(this.todos));
