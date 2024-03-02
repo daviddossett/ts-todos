@@ -100,7 +100,7 @@ class TodoList {
     }
 }
 class TodoForm {
-    constructor(form, input, submitButton, todoList, addButton, cancelButton) {
+    constructor(todoList) {
         // Use arrow functions to automatically bind `this` to the methods
         this.showForm = () => {
             this.form.style.display = 'flex';
@@ -132,15 +132,14 @@ class TodoForm {
                 this.hideForm();
             }
         };
-        // Initialize properties
-        this.form = form;
-        this.input = input;
-        this.submitButton = submitButton;
         this.todoList = todoList;
-        this.addButton = addButton;
-        this.cancelButton = cancelButton;
-        // Disable the submit button initially
-        this.submitButton.disabled = true;
+        this.form = document.getElementById('todo-form'),
+            this.input = document.getElementById('todo-input'),
+            this.submitButton = document.getElementById('todo-submit-button'),
+            this.addButton = document.getElementById('todo-add-button'),
+            this.cancelButton = document.getElementById('todo-cancel-button'),
+            // Disable the submit button initially
+            this.submitButton.disabled = true;
         // Attach event listeners
         this.input.addEventListener('input', this.handleInput);
         this.form.addEventListener('submit', this.handleSubmit);
@@ -193,7 +192,7 @@ class CounterUpdater {
 class App {
     constructor() {
         this.todoList = new TodoList(document.getElementById('todo-list'));
-        this.todoForm = new TodoForm(document.getElementById('todo-form'), document.getElementById('todo-input'), document.getElementById('todo-submit-button'), this.todoList, document.getElementById('todo-add-button'), document.getElementById('todo-cancel-button'));
+        this.todoForm = new TodoForm(this.todoList);
         let dateUpdater = new DateUpdater('date');
         dateUpdater.updateDate(new Date());
         let counterUpdater = new CounterUpdater('counter');

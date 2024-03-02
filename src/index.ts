@@ -143,14 +143,14 @@ class TodoForm {
     private todoList: TodoList;
     private cancelButton: HTMLButtonElement;
 
-    constructor(form: HTMLFormElement, input: HTMLInputElement, submitButton: HTMLButtonElement, todoList: TodoList, addButton: HTMLButtonElement, cancelButton: HTMLButtonElement) {
-        // Initialize properties
-        this.form = form;
-        this.input = input;
-        this.submitButton = submitButton;
+    constructor(todoList: TodoList) {
+        
         this.todoList = todoList;
-        this.addButton = addButton;
-        this.cancelButton = cancelButton;
+        this.form = document.getElementById('todo-form') as HTMLFormElement,
+        this.input = document.getElementById('todo-input') as HTMLInputElement,
+        this.submitButton = document.getElementById('todo-submit-button') as HTMLButtonElement,
+        this.addButton = document.getElementById('todo-add-button') as HTMLButtonElement,
+        this.cancelButton = document.getElementById('todo-cancel-button') as HTMLButtonElement,
 
         // Disable the submit button initially
         this.submitButton.disabled = true;
@@ -255,14 +255,8 @@ class App {
 
     constructor() {
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
-        this.todoForm = new TodoForm(
-            document.getElementById('todo-form') as HTMLFormElement,
-            document.getElementById('todo-input') as HTMLInputElement,
-            document.getElementById('todo-submit-button') as HTMLButtonElement,
-            this.todoList,
-            document.getElementById('todo-add-button') as HTMLButtonElement,
-            document.getElementById('todo-cancel-button') as HTMLButtonElement,
-        );
+        this.todoForm = new TodoForm(this.todoList);
+        
         let dateUpdater = new DateUpdater('date');
         dateUpdater.updateDate(new Date());
         
