@@ -46,6 +46,10 @@ li {
     border-bottom: 1px solid #efefef;
 }
 
+li input:hover {
+    cursor: pointer;
+}
+
 li:hover .remove-button,
 li:focus .remove-button,
 li:focus-within .remove-button {
