@@ -24,7 +24,7 @@ class TodoList {
         this.todos.push(newTodo);
         this.renderTodo(newTodo);
         this.saveTodos();
-        
+
         const counterUpdater = new CounterUpdater('counter');
         counterUpdater.updateCounter();
     }
@@ -235,7 +235,16 @@ class CounterUpdater {
             const parsedTodos = JSON.parse(savedTodos);
             const completedCount = parsedTodos.filter((todo: any) => todo.completed).length;
             const totalCount = parsedTodos.length;
-            this.counterElement.textContent = `✅ ${completedCount}/${totalCount} completed`;
+            const prefix = (() => {
+                if (completedCount === totalCount && totalCount > 0) {
+                    return '🎉';
+                } else if (completedCount !== 0 && completedCount < totalCount) {
+                    return '🏃‍♂️';
+                } else {
+                    return '🫥';
+                }
+            })();
+            this.counterElement.textContent = `${prefix} ${completedCount}/${totalCount} completed`;
         }
     }
 }
