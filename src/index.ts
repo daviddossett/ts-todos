@@ -61,7 +61,6 @@ class TodoList {
         const todoItem = document.querySelector(`[data-todo-id="${id}"]`) as HTMLLIElement;
         
         this.todoListContainer.removeChild(todoItem);
-
         this.saveTodos();
 
         const counterUpdater = new CounterUpdater('counter');
