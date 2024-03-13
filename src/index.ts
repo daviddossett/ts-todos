@@ -262,15 +262,125 @@ class Header {
     }
 }
 
+// Add a function to get the user's dark mode preference from local storage or return null if not set
+function getDarkModePreference(): boolean | null {
+    const preference = localStorage.getItem('dark-mode');
+    if (preference === 'true') {
+        return true;
+    } else if (preference === 'false') {
+        return false;
+    } else {
+        return null;
+    }
+}
+
+// Add a function to set the user's dark mode preference in local storage and update the CSS variables accordingly
+function setDarkModePreference(preference: boolean) {
+    localStorage.setItem('dark-mode', preference.toString());
+    const root = document.documentElement;
+    if (preference) {
+        root.style.setProperty('--background-color', '#121212');
+        root.style.setProperty('--text-color', '#ffffff');
+        root.style.setProperty('--subtext-color', '#b3b3b3');
+        root.style.setProperty('--placeholder-color', '#666666');
+        root.style.setProperty('--border-color', '#333333');
+        root.style.setProperty('--button-color', '#ff6f60');
+        root.style.setProperty('--button-hover-color', '#ff3d00');
+        root.style.setProperty('--button-disabled-color', '#ff3d00a0');
+        root.style.setProperty('--button-text-color', '#ffffff');
+        root.style.setProperty('--remove-button-color', 'transparent');
+        root.style.setProperty('--remove-button-hover-color', '#424242');
+    } else {
+        root.style.setProperty('--background-color', '#ffffff');
+        root.style.setProperty('--text-color', '#212121');
+        root.style.setProperty('--subtext-color', '#808080');
+        root.style.setProperty('--placeholder-color', '#999999');
+        root.style.setProperty('--border-color', '#d9d9d9');
+        root.style.setProperty('--button-color', '#C3392C');
+        root.style.setProperty('--button-hover-color', '#9c2d23');
+        root.style.setProperty('--button-disabled-color', '#9c2d23a0');
+        root.style.setProperty('--button-text-color', '#ffffff');
+        root.style.setProperty('--remove-button-color', 'transparent');
+        root.style.setProperty('--remove-button-hover-color', '#f5f5f5');
+    }
+}
+
+// Add a function to toggle the user's dark mode preference and call the set function
+function toggleDarkModePreference() {
+    const preference = getDarkModePreference();
+    if (preference === null) {
+        // If no preference is set, use the opposite of the system preference
+        const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setDarkModePreference(!systemPreference);
+    } else {
+        // If preference is set, use the opposite of the current preference
+        setDarkModePreference(!preference);
+    }
+}
+
+// Add a class for the dark mode toggle button and its constructor and methods
+class DarkModeToggle {
+    private button: HTMLButtonElement;
+    private icon: HTMLImageElement;
+
+    constructor() {
+        this.button = document.createElement('button');
+        this.button.id = 'dark-mode-toggle';
+        this.button.type = 'button';
+        this.button.addEventListener('click', this.handleClick);
+
+        this.icon = document.createElement('img');
+        this.icon.alt = 'Dark mode';
+
+        this.button.appendChild(this.icon);
+
+        this.updateIcon();
+    }
+
+    // Use arrow functions to automatically bind `this` to the methods
+    handleClick = () => {
+        toggleDarkModePreference();
+        this.updateIcon();
+    }
+
+    updateIcon = () => {
+        const preference = getDarkModePreference();
+        if (preference === null) {
+            // If no preference is set, use the system preference
+            const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            this.icon.src = systemPreference ? 'assets/icons/sun.svg' : 'assets/icons/moon.svg';
+        } else {
+            // If preference is set, use the current preference
+            this.icon.src = preference ? 'assets/icons/sun.svg' : 'assets/icons/moon.svg';
+        }
+    }
+
+    getElement() {
+        return this.button;
+    }
+}
+
 class App {
     header: Header;
     todoList: TodoList;
     todoForm: TodoForm;
+    darkModeToggle: DarkModeToggle;
 
     constructor() {
         this.header = new Header();
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
         this.todoForm = new TodoForm(this.todoList);
+
+        // Create an instance of the dark mode toggle button class and append it to the header element
+        this.darkModeToggle = new DarkModeToggle();
+        const headerElement = document.querySelector('.header') as HTMLDivElement;
+        headerElement.appendChild(this.darkModeToggle.getElement());
+
+        // Call the get function and set the CSS variables based on the result
+        const preference = getDarkModePreference();
+        if (preference !== null) {
+            setDarkModePreference(preference);
+        }
     }
 }
 
