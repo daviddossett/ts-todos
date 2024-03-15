@@ -6,8 +6,19 @@ html {
 body {
     height: 100%;
     width: 100%;
-    background: #ffffff;
-    color: #212121;
+    /* Define color variables for light mode */
+    --background-color: #ffffff;
+    --text-color: #212121;
+    --secondary-text-color: #808080;
+    --placeholder-color: #999999;
+    --border-color: #d9d9d9;
+    --button-color: #C3392C;
+    --button-hover-color: #9c2d23;
+    --button-disabled-color: #9c2d23a0;
+    --remove-button-color: #f5f5f5;
+    /* Use color variables in the existing rules */
+    background: var(--background-color);
+    color: var(--text-color);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
 }
@@ -25,7 +36,7 @@ h1 {
 }
 
 p {
-    color:#333333;
+    color: var(--text-color);
 }
 
 ul {
@@ -43,7 +54,7 @@ li {
     width: 100%;
     gap: 8px;
     padding: 20px 16px 20px 0;
-    border-bottom: 1px solid #efefef;
+    border-bottom: 1px solid var(--border-color);
 }
 
 li input:hover {
@@ -58,20 +69,20 @@ li:focus-within .remove-button {
 
 button {
     font-size: 14px;
-    background: #C3392C;
+    background: var(--button-color);
     border-radius: 5px;
     border: none;
-    color: #ffffff;
+    color: var(--background-color);
     white-space: nowrap;
 }
 
 button:hover {
-    background: #9c2d23;
+    background: var(--button-hover-color);
     cursor: pointer;
 }
 
 button:disabled {
-    background: #9c2d23a0;
+    background: var(--button-disabled-color);
     cursor: unset;
 }
 
@@ -82,7 +93,7 @@ button:disabled {
     padding: 16px;
     box-sizing: border-box;
     font-size: 12px;
-    color: #808080;
+    color: var(--secondary-text-color);
 }
 
 .content {
@@ -94,12 +105,12 @@ button:disabled {
 
 .current-date {
     margin: 8px 0;
-    color: #808080;
+    color: var(--secondary-text-color);
 }
 
 .completed {
     text-decoration: line-through;
-    color: #666666;
+    color: var(--secondary-text-color);
 }
 
 .todo-content {
@@ -129,15 +140,15 @@ button:disabled {
 }
 
 .remove-button:hover {
-    background-color: #f5f5f5;
+    background-color: var(--remove-button-color);
     opacity: 1;
 }
 
 #todo-form {
     display: none;
     align-items: center;
-    background: #ffffff;
-    border: 1px solid #d9d9d9;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     width: 100%;
     gap: 4px;
@@ -146,7 +157,7 @@ button:disabled {
 }
 
 #todo-form:focus-within {
-    border: 1px solid #a4a4a4;
+    border: 1px solid var(--secondary-text-color);
 }
 
 #todo-form input {
@@ -156,6 +167,7 @@ button:disabled {
     background: none;
     box-sizing: border-box;
     font-size: 14px;
+    color: var(--text-color);
 }
 
 #todo-form input:focus {
@@ -164,7 +176,7 @@ button:disabled {
 }
 
 #todo-form input::placeholder {
-    color: #999999;
+    color: var(--placeholder-color);
 }
 
 #todo-add-button {
@@ -174,7 +186,7 @@ button:disabled {
     gap: 11px;
     background: none;
     width: 100%;
-    color: #666;
+    color: var(--text-color);
     padding: 10px 0;
 }
 
@@ -187,18 +199,18 @@ button:disabled {
 }
 
 #todo-cancel-button {
-    background-color: #f5f5f5;
-    color: #444444;
+    background-color: var(--remove-button-color);
+    color: var(--text-color);
 }
 
 #todo-cancel-button:hover,
 #todo-cancel-button:focus {
-    background-color: #eeeeee;
-    color: #212121;
+    background-color: var(--border-color);
+    color: var(--text-color);
 }   
 
 #todo-add-button:hover {
-    color:#9c2d23;
+    color: var(--button-color);
 }
 
 @media (min-width: 1000px) {
@@ -210,5 +222,35 @@ button:disabled {
 
     .header {
         padding: 32px;
+    }
+}
+
+/* Add a media query for prefers-color-scheme: dark and override the color variables with dark mode values */
+@media (prefers-color-scheme: dark) {
+    body {
+        --background-color: #121212;
+        --text-color: #ffffff;
+        --secondary-text-color: #b3b3b3;
+        --placeholder-color: #666666;
+        --border-color: #333333;
+        --button-color: #ff6f60;
+        --button-hover-color: #c85a54;
+        --button-disabled-color: #c85a54a0;
+        --remove-button-color: #1a1a1a;
+    }
+}
+
+/* Add a media query for prefers-color-scheme: light and override the color variables with light mode values */
+@media (prefers-color-scheme: light) {
+    body {
+        --background-color: #ffffff;
+        --text-color: #212121;
+        --secondary-text-color: #808080;
+        --placeholder-color: #999999;
+        --border-color: #d9d9d9;
+        --button-color: #C3392C;
+        --button-hover-color: #9c2d23;
+        --button-disabled-color: #9c2d23a0;
+        --remove-button-color: #f5f5f5;
     }
 }

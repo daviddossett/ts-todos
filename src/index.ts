@@ -271,6 +271,64 @@ class App {
         this.header = new Header();
         this.todoList = new TodoList(document.getElementById('todo-list') as HTMLUListElement);
         this.todoForm = new TodoForm(this.todoList);
+
+        // Call the update UI function on page load
+        this.updateUI();
+
+        // Add an event listener to the dark mode checkbox to call the toggle function
+        const darkModeCheckbox = document.getElementById('dark-mode-checkbox') as HTMLInputElement;
+        darkModeCheckbox.addEventListener('change', this.toggleColorScheme);
+    }
+
+    // Add a function to check the user's preferred color scheme from localStorage or matchMedia
+    checkColorScheme() {
+        // Try to get the color scheme from localStorage
+        const storedColorScheme = localStorage.getItem('color-scheme');
+        if (storedColorScheme) {
+            return storedColorScheme;
+        }
+
+        // If not found, try to get the color scheme from matchMedia
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        if (mediaQuery.matches) {
+            return 'dark';
+        }
+
+        // If not found, default to light
+        return 'light';
+    }
+
+    // Add a function to toggle the color scheme and store it in localStorage
+    toggleColorScheme = () => {
+        // Get the current color scheme
+        const currentColorScheme = this.checkColorScheme();
+
+        // Toggle the color scheme
+        const newColorScheme = currentColorScheme === 'dark' ? 'light' : 'dark';
+
+        // Store the new color scheme in localStorage
+        localStorage.setItem('color-scheme', newColorScheme);
+
+        // Update the UI
+        this.updateUI();
+    }
+
+    // Add a function to update the UI according to the color scheme
+    updateUI() {
+        // Get the current color scheme
+        const currentColorScheme = this.checkColorScheme();
+
+        // Get the body element
+        const body = document.querySelector('body') as HTMLBodyElement;
+
+        // Get the dark mode checkbox
+        const darkModeCheckbox = document.getElementById('dark-mode-checkbox') as HTMLInputElement;
+
+        // Toggle the dark class on the body element
+        body.classList.toggle('dark', currentColorScheme === 'dark');
+
+        // Set the dark mode checkbox state
+        darkModeCheckbox.checked = currentColorScheme === 'dark';
     }
 }
 
